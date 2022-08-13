@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import Task from './components/Task';
 
 function App() {
+
+  const [taskname, setTaskname] = useState("");
+  const [time, setTime] = useState("");
+  const [tasklist, setTasklist] = useState([]);
+
+  const addTask = () =>{
+setTasklist([...tasklist, {task: taskname, time: time}]);
+setTaskname('');
+setTime('');
+
+
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>todo list</h1>
+      <label>Task Name: </label>
+
+      <input type='text' id='task' onChange={(e)=>{setTaskname(e.target.value)}}></input>
+      <label>Time: </label>
+      <input type='text' id='task' onChange={(e)=>{setTime(e.target.value)}}></input>
+      <button onClick={addTask}>Add</button>
+
+      {tasklist.map((task)=>{
+
+          return <Task taskName={task.task} time={task.time}></Task>
+
+      })}
+
+
+
     </div>
   );
 }
